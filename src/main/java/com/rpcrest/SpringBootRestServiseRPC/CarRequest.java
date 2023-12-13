@@ -24,6 +24,10 @@ public class CarRequest {
         }
     }
 
+    public int getCarsShowroomCount() {
+        return this.carsShowroom.size();
+    }
+
     public List<Car> getCarsShowroom() {
         return this.carsShowroom;
     }
@@ -40,9 +44,10 @@ public class CarRequest {
 
     public boolean addCar(Car newCar) {
         try {
-            newCar.setCarId(this.carsShowroom.size());
+            if (this.carsShowroom.isEmpty())
+                newCar.setCarId(1);
+            newCar.setCarId(this.carsShowroom.get(this.carsShowroom.size() - 1).getCarId() + 1);
             this.carsShowroom.add(newCar);
-//            TODO: Изменения свойства id исходя из последнего существующего, но не его номера по списку
             saveList();
             return true;
         } catch (Exception e) {
@@ -73,10 +78,15 @@ public class CarRequest {
 
     public boolean removeCarById(int id) {
         try {
-            this.carsShowroom.remove(id);
-//            TODO: Удаление не по id списка, а по id элемента
-            saveList();
-            return true;
+            for (Car car : this.carsShowroom) {
+                if (car.getCarId() == id) {
+                    this.carsShowroom.remove(car);
+                    saveList();
+                    return true;
+                }
+            }
+            System.out.println("removeCarById: element doesn't exists");
+            return false;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("removeCarById out IndexOutOfBoundsException: " + id + "\n" + e);
             return false;

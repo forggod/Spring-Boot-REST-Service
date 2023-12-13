@@ -40,20 +40,12 @@ public class ShowroomController {
         response = carRequest.getCarById(id);
         return response;
     }
-//    public static class Statistic{
-//        @Value("${spring.application.name}")
-//        String applicationName;
-//        @Value("${spring.application.version}")
-//        String applicationVersion;
-//        String address = InetAddress.getLocalHost();
-//    }
-//    @GetMapping("/statistic")
-//    public Statistic getStatistic() {
-//        final Car response;
-//        CarRequest carRequest = new CarRequest();
-//        response = carRequest.getCarById(id);
-//        return response;
-//    }
+
+    @GetMapping("/stat")
+    public Statistic getStatistic() {
+        Statistic response = new Statistic();
+        return response;
+    }
 
     @PostMapping("/add")
     public BaseResponse addCar(@RequestBody Car newCar) {
