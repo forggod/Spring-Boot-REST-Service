@@ -47,13 +47,13 @@ public class ShowroomController {
 //        String applicationVersion;
 //        String address = InetAddress.getLocalHost();
 //    }
-    @GetMapping("/statistic")
-    public Statistic getStatistic() {
-        final Car response;
-        CarRequest carRequest = new CarRequest();
-        response = carRequest.getCarById(id);
-        return response;
-    }
+//    @GetMapping("/statistic")
+//    public Statistic getStatistic() {
+//        final Car response;
+//        CarRequest carRequest = new CarRequest();
+//        response = carRequest.getCarById(id);
+//        return response;
+//    }
 
     @PostMapping("/add")
     public BaseResponse addCar(@RequestBody Car newCar) {
