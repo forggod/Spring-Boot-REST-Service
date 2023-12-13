@@ -24,6 +24,10 @@ public class CarRequest {
         }
     }
 
+    public List<Car> getCarsShowroom() {
+        return this.carsShowroom;
+    }
+
     private void saveList() {
         ObjectMapper objectMapper = new ObjectMapper();
         File jsonFile = new File("ShowroomCars.json");
@@ -38,6 +42,7 @@ public class CarRequest {
         try {
             newCar.setCarId(this.carsShowroom.size());
             this.carsShowroom.add(newCar);
+//            TODO: Изменения свойства id исходя из последнего существующего, но не его номера по списку
             saveList();
             return true;
         } catch (Exception e) {
@@ -69,6 +74,7 @@ public class CarRequest {
     public boolean removeCarById(int id) {
         try {
             this.carsShowroom.remove(id);
+//            TODO: Удаление не по id списка, а по id элемента
             saveList();
             return true;
         } catch (IndexOutOfBoundsException e) {
