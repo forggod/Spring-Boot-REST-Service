@@ -44,9 +44,10 @@ public class CarRequest {
 
     public boolean addCar(Car newCar) {
         try {
-            if (this.carsShowroom.isEmpty())
+            if (this.carsShowroom.size() == 0)
                 newCar.setCarId(1);
-            newCar.setCarId(this.carsShowroom.get(this.carsShowroom.size() - 1).getCarId() + 1);
+            else
+                newCar.setCarId(this.carsShowroom.get(this.carsShowroom.size() - 1).getCarId() + 1);
             this.carsShowroom.add(newCar);
             saveList();
             return true;
@@ -58,7 +59,13 @@ public class CarRequest {
 
     public Car getCarById(int id) {
         try {
-            return this.carsShowroom.get(id);
+            for (Car car : this.carsShowroom) {
+                if (car.getCarId() == id) {
+                    return car;
+                }
+            }
+            System.out.println("getCarById: element doesn't exists");
+            return null;
         } catch (Exception e) {
             System.out.println("getCarById out IndexOutOfBoundsException: " + id + "\n" + e);
             return null;
@@ -67,11 +74,17 @@ public class CarRequest {
 
     public boolean setCarById(int id, Car newCar) {
         try {
-            this.carsShowroom.set(id, newCar);
-            saveList();
-            return true;
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("setCarById out IndexOutOfBoundsException: " + id + "\n" + e);
+            for (Car car : this.carsShowroom) {
+                if (car.getCarId() == id) {
+                    this.carsShowroom.set(car.getCarId(), newCar);
+                    saveList();
+                    return true;
+                }
+            }
+            System.out.println("setCarById: element doesn't exists");
+            return false;
+        } catch (Exception e) {
+            System.out.println("getCarById out IndexOutOfBoundsException: " + id + "\n" + e);
             return false;
         }
     }
